@@ -1,0 +1,13 @@
+section.top.sec-slide
+    h3.text-left Quando usar spies?
+    p.text-left.fragments.
+        São muito úteis para testar callbacks e como métodos são usados dentro do sistema. Os spies te permitem verificar se um outro método foi chamado dentro do método que você estáa testando.
+
+    pre.fragment
+        code.
+            it("should inspect jQuery.getJSON's usage of jQuery.ajax", function () {
+                sinon.spy(jQuery, "ajax");
+                
+                jQuery.getJSON("/some/resource");
+                assert(jQuery.ajax.calledOnce);
+            });

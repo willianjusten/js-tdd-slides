@@ -1,0 +1,18 @@
+section.top.sec-slide
+    h3.text-left Quando usar mocks?
+    p.text-left.fragments.
+        Mocks devem ser primariamente utilizados quando você precisa de um stub, mas precisa verificar múltiplos comportamentos num específico ponto.
+
+    pre.fragment
+        code.
+            it('should pass object with correct values to save only once', function() {
+              var info = { name: 'test' };
+              var expectedUser = { nameLowercase: info.name.toLowerCase() };
+              
+              var database = sinon.mock(Database);
+              database.expects('save').once().withArgs(expectedUser);
+
+              setupNewUser(info, function() { });
+              database.verify();
+              database.restore();
+            });
