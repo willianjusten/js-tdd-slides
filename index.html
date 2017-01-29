@@ -118,6 +118,139 @@
           <h1 class="bold">#5</h1>
           <h2 class="bold">Faça testes!</h2>
         </section>
+        <section class="top sec-slide">
+          <h3 class="text-left">Por que testar?</h3>
+          <ul class="list-left">
+            <li class="fragment">Reduz o tempo gasto em análise e correção de bugs</li>
+            <li class="fragment">Facilita refatoração.</li>
+            <li class="fragment">Gera documentação.</li>
+            <li class="fragment">Melhora o design do código.</li>
+            <li class="fragment">Garante que o trabalho tenha qualidade.</li>
+          </ul>
+        </section>
+        <section class="top sec-slide">
+          <h2 class="text-left">TDD</h2><img src="img/tdd_flow.gif" alt="" class="no-border">
+        </section>
+        <section class="top sec-slide">
+          <h3 class="text-left">Fluxo do teste</h3>
+          <ol class="list-left">
+            <li class="fragment">Escrever o teste</li>
+            <li class="fragment">Escrever o código para o teste passar</li>
+            <li class="fragment">Escrever um segundo caso de teste</li>
+            <li class="fragment">Corrigir o código para que passe</li>
+            <li class="fragment">Escrever um terceiro caso de teste (se necessário)</li>
+            <li class="fragment">Refatorar o código</li>
+          </ol>
+        </section>
+        <section class="top sec-slide">
+          <h3 class="text-left">Pensando como testar</h3>
+          <ul class="list-left">
+            <li class="fragment">O que o código precisa fazer?</li>
+            <li class="fragment">Que dados ele recebe?</li>
+            <li class="fragment">Que dados ele precisa retornar?</li>
+            <li class="fragment">Que ações precisam acontecer para o código rodar?</li>
+          </ul>
+        </section>
+        <section class="top sec-slide">
+          <h3 class="text-left">Padrão do teste</h3>
+          <p class="fragment mt-100">"Ele deve fazer isso quando aquilo"</p>
+          <p class="fragment">"It should do that when this"</p>
+          <pre class="fragment"><code>it('should return 4 when receive 2,2') {
+    expect(sum(2,2)).to.equal(4);
+}</code></pre>
+        </section>
+        <section class="top sec-slide">
+          <h2 class="text-left">Tipos de Teste</h2><img src="img/pyramid.png" alt="" class="fragment no-border mt-100">
+        </section>
+        <section class="top sec-slide">
+          <h3 class="text-left">Teste Unitário</h3>
+          <p style="margin-top:50px" class="text-left">
+            É um simples e pequeno teste automatizado que prova o comportamento
+            de um único método.
+            
+          </p>
+          <ul class="list-left">
+            <li class="fragment">Evite ruído entre os testes (Isolamento).</li>
+            <li class="fragment">Escolha os melhores asserts para cada momento.</li>
+            <li class="fragment">Procure usar Mocks para chamadas externas.</li>
+            <li class="fragment">Utilize dele para organizar o design de seu código.</li>
+          </ul>
+        </section>
+        <section class="top sec-slide">
+          <h3 class="text-left">Testes de Integração</h3>
+          <p style="margin-top:50px" class="text-left">
+            É um teste para validar se os componentes estão funcionando em conjunto.
+            
+          </p>
+          <ul class="list-left">
+            <li class="fragment">Cuidado para não criar um teste inútil.</li>
+            <li class="fragment">Isole o máximo possível dos ambientes.</li>
+          </ul>
+        </section>
+        <section class="top sec-slide">
+          <h3 class="text-left">Testes de Aceitação (E2E)</h3>
+          <p class="text-left middle">
+            O teste de aceitação é realizado com o propósito de avaliar a qualidade externa do produto e, na medida do possível, também a qualidade em uso.
+            
+          </p>
+          <ul>
+            <li class="fragment">Valide <strong>apenas</strong> o fluxo de funcionamento do projeto.</li>
+          </ul>
+        </section>
+        <section data-background="#0562dc">
+          <h3 class="bold">Spies, Stubs e Mocks</h3>
+        </section>
+        <section class="top sec-slide">
+          <h3 class="text-left">Spies</h3>
+          <p class="text-left middle">Como o nome sugere, spies são usados para vigiar informações sobre chamadas de funções (métodos). Um spy vai nos dizer se o método foi chamado, quantas vezes, quais argumentos foram passados, etc.</p>
+        </section>
+        <section class="top sec-slide">
+          <h3 class="text-left">Quando usar spies?</h3>
+          <p class="text-left fragments">
+            São muito úteis para testar callbacks e como métodos são usados dentro do sistema. Os spies te permitem verificar se um outro método foi chamado dentro do método que você estáa testando.
+            
+          </p>
+          <pre class="fragment"><code>it("should inspect jQuery.getJSON's usage of jQuery.ajax", function () {
+    sinon.spy(jQuery, "ajax");
+    
+    jQuery.getJSON("/some/resource");
+    assert(jQuery.ajax.calledOnce);
+});</code></pre>
+        </section>
+        <section class="top sec-slide">
+          <h3 class="text-left">Stubs</h3>
+          <p class="text-left middle">Stubs são como os spies, exceto por eles substituirem a função alvo. Podendo inclusive mudar o comportamento, assim como os valores e exceções levantadas. </p>
+        </section>
+        <section class="top sec-slide">
+          <h3 class="text-left">Quando usar stubs?</h3>
+          <ul class="list-left">
+            <li class="fragment">Controlar comportamento de um teste. Ex.: forçar uma exceção</li>
+            <li class="fragment">"Pular" uma parte não necessária do código. Ex.: execução de db</li>
+            <li class="fragment">Simplificar o teste de código assíncrono</li>
+          </ul>
+        </section>
+        <section class="top sec-slide">
+          <h3 class="text-left">Mocks</h3>
+          <p class="text-left middle">Mocks são métodos falsos (similares aos spies) com comportamento pré-programado (similar ao stub) e respostas/expectations pré-programados.</p>
+        </section>
+        <section class="top sec-slide">
+          <h3 class="text-left">Quando usar mocks?</h3>
+          <p class="text-left fragments">
+            Mocks devem ser primariamente utilizados quando você precisa de um stub, mas precisa verificar múltiplos comportamentos num específico ponto.
+            
+          </p>
+          <pre class="fragment"><code>it('should pass object with correct values to save only once', function() {
+  var info = { name: 'test' };
+  var expectedUser = { nameLowercase: info.name.toLowerCase() };
+  
+  var database = sinon.mock(Database);
+  database.expects('save').once().withArgs(expectedUser);
+
+  setupNewUser(info, function() { });
+  database.verify();
+  database.restore();
+});</code></pre>
+        </section>
       </div>
     </div>
     <script src="js/vendor/head.min.js"></script>
